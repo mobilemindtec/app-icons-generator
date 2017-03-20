@@ -1,0 +1,247 @@
+extends extra/layout
+
+block content
+
+	.jumbotron
+		h1.text-center
+			| Icons Pack Generator 
+			small 
+				| iOS and Android
+		p
+			| Are you tired of generating all versions of icons for your apps by sending one icon at a time to that icon generation site? Your problems are over! Here you send all your icons in one go and receive in iOS and Android versions!			
+
+	.row
+		.col-xs-12
+			- if (error)
+				.alert.alert-danger
+					p
+						| #{message}
+	.row
+		.col-xs-6
+			.panel.panel-default
+				.panel-body
+					h2.text-center
+						| Custom Icons
+					hr					
+					p
+						| Select icons files to resize. Yes, you can upload many icons file at a time!
+					p
+						i
+							| Be sure to upload your smaller resolution or set size in px to smaller resolution.
+
+					form(method='post', action='/upload/custom', enctype="multipart/form-data")
+						.row
+							.col-xs-12
+								.fileinput.fileinput-new(data-provides="fileinput")
+									span.btn.btn-default.btn-file
+										span.fileinput-new
+											| Select..
+										span.fileinput-exists
+											| Other..
+										input(type='file', name='files', multiple="")
+									span.fileinput-filename
+									a.close.fileinput-exists(href='#', data-dismiss="fileinput", style="float: none") x
+						.row
+							.col-xs-6
+								.form-group
+									label.form-label
+										| Smaller size 
+										small android (px)
+									input.form-control(name='androidSize', placeholder='optional size. eg.: 32')
+							.col-xs-6
+								.form-group
+									label.form-label
+										| Smaller size 
+										small ios (px)
+									input.form-control(name='iosSize', placeholder='optional size. eg.: 32')
+						.row
+							.col-xs-12
+								button.btn.btn-primary.pull-right(type='submit')
+									i.fa.fa-check 
+									| &nbsp; Submit
+
+		.col-xs-6
+			.panel.panel-default
+				.panel-body
+
+					h2.text-center
+						| Launcher Icons
+					hr
+					p
+						| Select icons files to resize. Yes, you can upload many icons file at a time!
+					p
+						i
+							| Upload image size 1024x1024.
+
+					form(method='post', action='/upload/launcher', enctype="multipart/form-data")
+						.row
+							.col-xs-12
+								.fileinput.fileinput-new(data-provides="fileinput")
+									span.btn.btn-default.btn-file
+										span.fileinput-new
+											| Select..
+										span.fileinput-exists
+											| Other..
+										input(type='file', name='files')
+									span.fileinput-filename
+									a.close.fileinput-exists(href='#', data-dismiss="fileinput", style="float: none") x
+						.row
+							.col-xs-12
+								button.btn.btn-primary.pull-right(type='submit')
+									i.fa.fa-check 
+									| &nbsp; Submit							
+
+	.row
+		.col-xs-12
+			hr					
+
+	.row
+		.col-xs-6
+			.panel.panel-default
+				.panel-body
+
+					h2.text-center
+						| Action Bar 
+					hr
+					p
+						| Select action bar icons files to resize.
+
+					form(method='post', action='/upload/actionbar', enctype="multipart/form-data")
+						.row
+							.col-xs-12
+								.fileinput.fileinput-new(data-provides="fileinput")
+									span.btn.btn-default.btn-file
+										span.fileinput-new
+											| Select..
+										span.fileinput-exists
+											| Other..
+										input(type='file', name='files')
+									span.fileinput-filename
+									a.close.fileinput-exists(href='#', data-dismiss="fileinput", style="float: none") x
+						.row
+							.col-xs-12
+								button.btn.btn-primary.pull-right(type='submit')
+									i.fa.fa-check 
+									| &nbsp; Submit				
+
+		.col-xs-6
+			.panel.panel-default
+				.panel-body
+
+					h2.text-center
+						| Tab Bar
+					hr
+					p
+						| Select action tab icons files to resize.
+
+					form(method='post', action='/upload/tab', enctype="multipart/form-data")
+						.row
+							.col-xs-12
+								.fileinput.fileinput-new(data-provides="fileinput")
+									span.btn.btn-default.btn-file
+										span.fileinput-new
+											| Select..
+										span.fileinput-exists
+											| Other..
+										input(type='file', name='files')
+									span.fileinput-filename
+									a.close.fileinput-exists(href='#', data-dismiss="fileinput", style="float: none") x
+						.row
+							.col-xs-12
+								button.btn.btn-primary.pull-right(type='submit')
+									i.fa.fa-check 
+									| &nbsp; Submit											
+
+	.row
+		.col-xs-12
+			hr					
+
+
+	.row
+		.col-xs-4
+			.panel.panel-default
+				.panel-body
+
+					h2.text-center
+						| Status Bar 
+						small (only android)
+					hr
+					p
+						| Select status tab icons files to resize.
+
+					form(method='post', action='/upload/statusbar', enctype="multipart/form-data")
+						.row
+							.col-xs-12
+								.fileinput.fileinput-new(data-provides="fileinput")
+									span.btn.btn-default.btn-file
+										span.fileinput-new
+											| Select..
+										span.fileinput-exists
+											| Other..
+										input(type='file', name='files')
+									span.fileinput-filename
+									a.close.fileinput-exists(href='#', data-dismiss="fileinput", style="float: none") x
+						.row
+							.col-xs-12
+								button.btn.btn-primary.pull-right(type='submit')
+									i.fa.fa-check 
+									| &nbsp; Submit										
+
+		.col-xs-4
+			.panel.panel-default
+				.panel-body
+
+					h2.text-center
+						| Dialogs 
+						small (only android)
+					hr
+					p
+						| Select dialogs icons files to resize.
+
+					form(method='post', action='/upload/dialogs', enctype="multipart/form-data")
+						.row
+							.col-xs-12
+								.fileinput.fileinput-new(data-provides="fileinput")
+									span.btn.btn-default.btn-file
+										span.fileinput-new
+											| Select..
+										span.fileinput-exists
+											| Other..
+										input(type='file', name='files')
+									span.fileinput-filename
+									a.close.fileinput-exists(href='#', data-dismiss="fileinput", style="float: none") x
+						.row
+							.col-xs-12
+								button.btn.btn-primary.pull-right(type='submit')
+									i.fa.fa-check 
+									| &nbsp; Submit	
+
+		.col-xs-4
+
+			.panel.panel-default
+				.panel-body
+
+					h2.text-center
+						| List View 
+						small (only android)
+					hr
+					p
+						| Select list view icons files to resize.
+
+					form(method='post', action='/upload/listview', enctype="multipart/form-data")
+						.row
+							.col-xs-12
+								.fileinput.fileinput-new(data-provides="fileinput")
+									span.btn.btn-default.btn-file
+										span.fileinput-new
+											| Select..
+										span.fileinput-exists
+											| Other..
+										input(type='file', name='files')
+									span.fileinput-filename
+									a.close.fileinput-exists(href='#', data-dismiss="fileinput", style="float: none") x
+						.row
+							.col-xs-12
+								button.btn.btn-primary.pull-right(type='submit')
+									i.fa.fa-check 
+									| &nbsp; Submit																	
