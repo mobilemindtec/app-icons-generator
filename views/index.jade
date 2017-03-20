@@ -30,6 +30,7 @@ block content
 							| Be sure to upload your smaller resolution or set size in px to smaller resolution.
 
 					form(method='post', action='/upload/custom', enctype="multipart/form-data")
+						input(type="hidden" name="_csrf" value="#{csrfToken}")
 						.row
 							.col-xs-12
 								.fileinput.fileinput-new(data-provides="fileinput")
@@ -74,6 +75,7 @@ block content
 							| Upload image size 1024x1024.
 
 					form(method='post', action='/upload/launcher', enctype="multipart/form-data")
+						input(type="hidden" name="_csrf" value="#{csrfToken}")
 						.row
 							.col-xs-12
 								.fileinput.fileinput-new(data-provides="fileinput")
@@ -82,7 +84,7 @@ block content
 											| Select..
 										span.fileinput-exists
 											| Other..
-										input(type='file', name='files')
+										input(type='file', name='file')
 									span.fileinput-filename
 									a.close.fileinput-exists(href='#', data-dismiss="fileinput", style="float: none") x
 						.row
@@ -107,6 +109,7 @@ block content
 						| Select action bar icons files to resize.
 
 					form(method='post', action='/upload/actionbar', enctype="multipart/form-data")
+						input(type="hidden" name="_csrf" value="#{csrfToken}")
 						.row
 							.col-xs-12
 								.fileinput.fileinput-new(data-provides="fileinput")
@@ -135,6 +138,7 @@ block content
 						| Select action tab icons files to resize.
 
 					form(method='post', action='/upload/tab', enctype="multipart/form-data")
+						input(type="hidden" name="_csrf" value="#{csrfToken}")
 						.row
 							.col-xs-12
 								.fileinput.fileinput-new(data-provides="fileinput")
@@ -170,6 +174,7 @@ block content
 						| Select status tab icons files to resize.
 
 					form(method='post', action='/upload/statusbar', enctype="multipart/form-data")
+						input(type="hidden" name="_csrf" value="#{csrfToken}")
 						.row
 							.col-xs-12
 								.fileinput.fileinput-new(data-provides="fileinput")
@@ -199,6 +204,7 @@ block content
 						| Select dialogs icons files to resize.
 
 					form(method='post', action='/upload/dialogs', enctype="multipart/form-data")
+						input(type="hidden" name="_csrf" value="#{csrfToken}")
 						.row
 							.col-xs-12
 								.fileinput.fileinput-new(data-provides="fileinput")
@@ -229,6 +235,7 @@ block content
 						| Select list view icons files to resize.
 
 					form(method='post', action='/upload/listview', enctype="multipart/form-data")
+						input(type="hidden" name="_csrf" value="#{csrfToken}")
 						.row
 							.col-xs-12
 								.fileinput.fileinput-new(data-provides="fileinput")

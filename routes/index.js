@@ -4,32 +4,46 @@ var fs = require('fs');
 var sharp = require("sharp")
 var logger = require('winston');
 var uuid = require('node-uuid');
-var zip = new require('node-zip')();
+var Zip = new require('node-zip');
 var multer  = require('multer')
 var sizeOf = require('image-size');
+var csrf = require('csurf')
+var bodyParser = require('body-parser');
+
 var settings = require("../settings")
+
+var csrfProtection = csrf({ cookie: true })
+var parseForm = bodyParser.urlencoded({ extended: false })
 
 var icons_default_size = settings.icons_default_size
 var temp_path = settings.upload_path
 var upload = multer({ dest: `${temp_path}/` });
 
 
-router.get('/', function(req, res, next) {
-  res.render('index', { icons_default_size: icons_default_size });
+router.get('/', csrfProtection, function(req, res, next) {
+  res.render('index', { icons_default_size: icons_default_size, csrfToken: req.csrfToken() });
 });
 
 router.get('/upload/:action', function(req, res, next) {
   res.redirect("/")
 });
 
-router.post('/upload/custom', upload.array('files'), function(req, res, next){
+router.get('/contact', function(req, res, next) {
+  res.render('contact');
+});
+
+router.get('/about', function(req, res, next) {
+  res.render('about');
+});
+
+router.post('/upload/custom', parseForm, upload.array('files'), function(req, res, next){
     logRequestInfo(req)
     process(req, res, icons_default_size.custon_icons, { custom_icons: true })
 })
 
-router.post('/upload/launcher', function(req, res, next){
+router.post('/upload/launcher', parseForm, function(req, res, next){
 
-    upload.single('files')(req, res, function(error){
+    upload.single('file')(req, res, function(error){
 
         if(error){
             res.render('index', { error: true, message: `Error on process request: ${error}. Only one file is required` });
@@ -41,13 +55,13 @@ router.post('/upload/launcher', function(req, res, next){
     })
 })
 
-router.post('/upload/actionbar', upload.array('files'), function(req, res, next){
+router.post('/upload/actionbar', parseForm, upload.array('files'), function(req, res, next){
     logRequestInfo(req)
-    process(req, res, icons_default_size.launcher_icons)
+    process(req, res, icons_default_size.actionbar_icons)
 })
 
 
-router.post('/upload/tab', upload.array('files'), function(req, res, next){
+router.post('/upload/tab', parseForm, upload.array('files'), function(req, res, next){
     logRequestInfo(req)
     process(req, res, icons_default_size.tab_icons)
 })
@@ -58,19 +72,19 @@ router.post('/upload/listview', upload.array('files'), function(req, res, next){
 })
 
 // only android
-router.post('/upload/menu', upload.array('files'), function(req, res, next){
+router.post('/upload/menu', parseForm, upload.array('files'), function(req, res, next){
     logRequestInfo(req)
     process(req, res, icons_default_size.menu_icons)
 })
 
 // only android
-router.post('/upload/statusbar', upload.array('files'), function(req, res, next){
+router.post('/upload/statusbar', parseForm, upload.array('files'), function(req, res, next){
     logRequestInfo(req)
     process(req, res, icons_default_size.statusbar_icons)
 })
 
 // only android
-router.post('/upload/dialogs', upload.array('files'), function(req, res, next){
+router.post('/upload/dialogs', parseForm, upload.array('files'), function(req, res, next){
     logRequestInfo(req)
     process(req, res, icons_default_size.dialogs_icons)
 })
@@ -90,6 +104,23 @@ function process(req, res, type_icons, params){
 
 
     var icons_to_create = []
+    
+    if(params.launcher){
+
+        if(!req.file){
+            res.render('index', { error: true, message: `Select app icon file` });
+            return
+        }
+
+        req.files = [req.file]
+    }else{
+        if(!req.files || req.files.length == 0){
+            res.render('index', { error: true, message: `Select icons files` });
+            return
+        }
+    }
+
+    if(req.files)
 
 
     for(var i in req.files){
@@ -174,8 +205,10 @@ function process(req, res, type_icons, params){
             }
         }
     }
-
+    var total = icons_to_create.length
     var next = function(){
+
+        logger.info("next length " + icons_to_create.length + " of " + total)
 
         if(icons_to_create.length == 0){
             var zip_file = createIconsZip(request_temp_path)
@@ -199,10 +232,12 @@ function process(req, res, type_icons, params){
 
 function createIcon(origin_file, destination_file, resizeTo){
 
+    logger.info(`createIcon resize to ${parseInt(resizeTo, 10)}`)
+
     return new Promise(function(resolve, reject){
 
         sharp(origin_file)              
-          .resize(resizeTo)
+          .resize(parseInt(resizeTo, 10))
           .toBuffer()
           .then(function(buff){
 
@@ -228,12 +263,15 @@ function createIcon(origin_file, destination_file, resizeTo){
 
 function createIconsZip(icons_folder){
     
+    logger.info("createIconsZip")
+
     var sp = icons_folder.split("/")
     var zip_path = `${icons_folder}.zip`
     var base_folder_name = sp[sp.length = 1]
 
     var items = readAllFiles(icons_folder)
     
+    var zip = new Zip()
     var zip_base_folder = zip.folder(base_folder_name)    
 
     for(var i in items){
@@ -292,12 +330,21 @@ function readAllFiles(dir){
 
 function logRequestInfo(req){
     var length = 0
-
-    for(var i in req.files){
-        length += req.files[i].size
+    var count = 0
+    if(req.files){
+        for(var i in req.files){
+            length += req.files[i].size
+        }
+        count = req.files.length
+    }else if(req.file){
+        count = 1
+        length += req.file.size
+    }else{
+        logger.info("no file uploaded")
+        return
     }
 
-    logger.info(`{ host: ${req.headers.host}, time: ${new Date().toISOString()}, action: '/upload/custom', files: ${req.files.length}, len: ${length} }`)    
+    logger.info(`{ host: ${req.headers.host}, time: ${new Date().toISOString()}, action: '/upload/custom', files: ${count}, len: ${length} }`)    
 }
 
 function sanitizeResourceName(s) {

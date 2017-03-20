@@ -1,6 +1,12 @@
 extends extra/layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+
+	.jumbotron
+		h1.text-center
+			| #{error.status} - #{message}
+		p
+			pre 
+				| #{error.stack}
+
+	
