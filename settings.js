@@ -41,71 +41,138 @@ exports.icons_default_size = {
             "xxhdpi": 144,
             "xxxhdpi": 192
         },
-        ios: {
-            "iTunesArtwork": 512,
-            "iTunesArtwork@2x": 1024,
-            "Icon-60@2x.png": 120,
-            "Icon-60@3x.png": 180,
-            "Icon-76.png": 76,
-            "Icon-76@2x.png": 152,
-            "Icon-83.5@2x.png": 167,
-            "Icon-Small-40.png": 40,
-            "Icon-Small-40@2x.png": 80,
-            "Icon-Small-40@3x.png": 120,
-            "Icon-Small.png": 29,
-            "Icon-Small@2x.png": 58,
-            "Icon-Small@3x.png": 87,
-            "Icon.png": 57,
-            "Icon@2x.png": 114,
-            "Icon-72.png": 72,
-            "Icon-72@2x.png": 144,
-            "Icon-Small.png": 29,
-            "Icon-Small@2x.png": 58,
-            "Icon-Small-50.png": 50,
-            "Icon-Small-50@2x.png": 100,
-            "iTunesArtwork": 512,
-            "iTunesArtwork@2x": 1024,
-            "Icon-76.png": 76,
-            "Icon-76@2x.png": 152,
-            "Icon-83.5@2x.png": 167,
-            "Icon-Small-40.png": 40,
-            "Icon-Small-40@2x.png": 80,
-            "Icon-Small.png": 29,
-            "Icon-Small@2x.png": 58,
-            "Icon-72.png": 72,
-            "Icon-72@2x.png": 144,
-            "Icon-Small-50.png": 50,
-            "Icon-Small-50@2x.png": 100,
-            "iTunesArtwork": 512,
-            "iTunesArtwork@2x": 1024,
-            "Icon-60@2x.png": 120,
-            "Icon-60@3x.png": 180,
-            "Icon-76.png": 76,
-            "Icon-76@2x.png": 152,
-            "Icon-83.5@2x.png": 167,
-            "Icon-Small-40.png": 40,
-            "Icon-Small-40@2x.png": 80,
-            "Icon-Small-40@3x.png": 120,
-            "Icon-Small.png": 29,
-            "Icon-Small@2x.png": 58,
-            "Icon-Small@3x.png": 87,
-            "Icon.png": 57,
-            "Icon@2x.png": 114,
-            "Icon-72.png": 72,
-            "Icon-72@2x.png": 144,
-            "Icon-Small.png": 29,
-            "Icon-Small@2x.png": 58,
-            "Icon-Small-50.png": 50,
-            "Icon-Small-50@2x.png": 100,
-            "AppIcon40x40@2x.png": 80,
-            "AppIcon44x44@2x.png": 88,
-            "AppIcon86x86@2x.png": 172,
-            "AppIcon98x98@2x.png": 196,
-            "AppIcon24x24@2x.png": 48,
-            "AppIcon27.5x27.5@2x.png": 55,
-            "AppIcon29x29@2x.png": 58,
-            "AppIcon29x29@3x.png": 87        
-        }        
+        ios: [
+            {
+                "filename": "iTunesArtwork.png",
+                "size" : "512x512",
+                "scale" : "1x"
+            },
+            {
+                "filename": "iTunesArtwork@2x.png",
+                "size" : "1024x1024",
+                "scale" : "1x"
+            },
+            {
+              "size" : "29x29",
+              "idiom" : "iphone",
+              "filename" : "App-Icon29.png",
+              "scale" : "1x"
+            },
+            {
+              "size" : "29x29",
+              "idiom" : "iphone",
+              "filename" : "App-Icon29@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "29x29",
+              "idiom" : "iphone",
+              "filename" : "App-Icon29@3x.png",
+              "scale" : "3x"
+            },
+            {
+              "size" : "40x40",
+              "idiom" : "iphone",
+              "filename" : "App-Icon40@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "40x40",
+              "idiom" : "iphone",
+              "filename" : "App-Icon40@3x.png",
+              "scale" : "3x"
+            },
+            {
+              "size" : "57x57",
+              "idiom" : "iphone",
+              "filename" : "App-Icon57.png",
+              "scale" : "1x"
+            },
+            {
+              "size" : "57x57",
+              "idiom" : "iphone",
+              "filename" : "App-Icon57@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "60x60",
+              "idiom" : "iphone",
+              "filename" : "App-Icon60@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "60x60",
+              "idiom" : "iphone",
+              "filename" : "App-Icon60@3x.png",
+              "scale" : "3x"
+            },
+            {
+              "size" : "29x29",
+              "idiom" : "ipad",
+              "filename" : "App-Icon29.png",
+              "scale" : "1x"
+            },
+            {
+              "size" : "29x29",
+              "idiom" : "ipad",
+              "filename" : "App-Icon29@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "40x40",
+              "idiom" : "ipad",
+              "filename" : "App-Icon40.png",
+              "scale" : "1x"
+            },
+            {
+              "size" : "40x40",
+              "idiom" : "ipad",
+              "filename" : "App-Icon40@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "50x50",
+              "idiom" : "ipad",
+              "filename" : "App-Icon50.png",
+              "scale" : "1x"
+            },
+            {
+              "size" : "50x50",
+              "idiom" : "ipad",
+              "filename" : "App-Icon50@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "72x72",
+              "idiom" : "ipad",
+              "filename" : "App-Icon72.png",
+              "scale" : "1x"
+            },
+            {
+              "size" : "72x72",
+              "idiom" : "ipad",
+              "filename" : "App-Icon72@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "76x76",
+              "idiom" : "ipad",
+              "filename" : "App-Icon76.png",
+              "scale" : "1x"
+            },
+            {
+              "size" : "76x76",
+              "idiom" : "ipad",
+              "filename" : "App-Icon76@2x.png",
+              "scale" : "2x"
+            },
+            {
+              "size" : "83.5x83.5",
+              "idiom" : "ipad",
+              "filename" : "App-Icon83.5@2x.png",
+              "scale" : "2x"
+            }                    
+        ]     
     },
 
     actionbar_icons: {
@@ -128,6 +195,8 @@ exports.icons_default_size = {
             "mdpi": 24,
             "hdpi": 36,
             "xhdpi": 48,
+            "xxhdpi": 72,
+            "xxxhdpi": 96,
         }        
     },
 

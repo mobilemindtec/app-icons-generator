@@ -113,15 +113,14 @@ function process(req, res, type_icons, params){
         }
 
         req.files = [req.file]
+
     }else{
+
         if(!req.files || req.files.length == 0){
             res.render('index', { error: true, message: `Select icons files` });
             return
         }
     }
-
-    if(req.files)
-
 
     for(var i in req.files){
 
@@ -136,7 +135,19 @@ function process(req, res, type_icons, params){
 
             for(var platform_size_name in type_icons[platform]){
                 
-                var resizeTo = type_icons[platform][platform_size_name]
+                var resizeTo = 0
+                // if is ios launcher
+                var iosJson = type_icons[platform][platform_size_name]
+
+                if(platform == 'ios' && params.launcher){
+                    console.log(platform_size_name)
+                    console.log(type_icons[platform][platform_size_name])
+                    console.log(iosJson)
+                    resizeTo = parseInt(iosJson.size.split('x')[0]) * parseInt(iosJson.scale.replace("x", ""))
+                }
+                else{
+                    resizeTo = type_icons[platform][platform_size_name]
+                }
 
                 // to custon icons calcula size based at less image
                 if(params.custom_icons){
@@ -185,7 +196,10 @@ function process(req, res, type_icons, params){
 
                 var destination_file
                 
-                if(platform == 'ios'){  
+                if(platform == 'ios' && params.launcher){
+                    destination_file = `${request_temp_path_ios}/${iosJson.filename}`
+                }
+                else if(platform == 'ios'){  
                     destination_file = `${request_temp_path_ios}/${clear_filename}${platform_size_name}.png`
                 }else{
                     var android_sub_path = `${request_temp_path_android}/drawable-${platform_size_name}`
@@ -200,12 +214,15 @@ function process(req, res, type_icons, params){
                 icons_to_create.push({
                     original_file: original_file_full_path, 
                     destination_file: destination_file,
-                    resizeTo: resizeTo
+                    resizeTo: resizeTo,
+                    contents: (params.launcher && platform == 'ios' && iosJson.idiom) ? iosJson : undefined,
+                    platform: platform
                 })
             }
         }
     }
     var total = icons_to_create.length
+
     var next = function(){
 
         logger.info("next length " + icons_to_create.length + " of " + total)
@@ -227,7 +244,39 @@ function process(req, res, type_icons, params){
         })
     }
 
-    next()    
+    if(params.launcher){
+        // create ios contents file
+        var stream = fs.createWriteStream(`${request_temp_path_ios}/Contents.json`);
+        stream.once('open', function(fd) {
+
+            stream.write("{\n");
+            stream.write("\t\"images\" : [\n");
+
+            for(i in icons_to_create){
+                var it = icons_to_create[i]
+                if(it.platform == 'ios' && it.contents){
+                    stream.write("\t\t{\n")
+                    stream.write(`\t\t\t"size": "${it.contents.size}",\n`)
+                    stream.write(`\t\t\t"idiom": "${it.contents.idiom}",\n`)
+                    stream.write(`\t\t\t"filename": "${it.contents.filename}",\n`)
+                    stream.write(`\t\t\t"scale": "${it.contents.scale}"\n`)
+
+                    if(i < icons_to_create.length -1)
+                        stream.write("\t\t},\n")
+                    else
+                        stream.write("\t\t}\n")
+                }
+            }
+
+            stream.write("\t]\n")
+            stream.write("}")
+            stream.end()
+            next()
+        });        
+    }else{
+        next()    
+    }
+
 }
 
 function createIcon(origin_file, destination_file, resizeTo){
