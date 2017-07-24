@@ -143,7 +143,7 @@ function process(req, res, type_icons, params){
                     console.log(platform_size_name)
                     console.log(type_icons[platform][platform_size_name])
                     console.log(iosJson)
-                    resizeTo = parseInt(iosJson.size.split('x')[0]) * parseInt(iosJson.scale.replace("x", ""))
+                    resizeTo = parseFloat(iosJson.size.split('x')[0]) * parseFloat(iosJson.scale.replace("x", ""))
                 }
                 else{
                     resizeTo = type_icons[platform][platform_size_name]
