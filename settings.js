@@ -170,7 +170,7 @@ exports.icons_default_size = {
               "size" : "83.5x83.5",
               "idiom" : "ipad",
               "filename" : "App-Icon83.5.png",
-              "scale" : "2x"
+              "scale" : "1x"
             },
             {
               "size" : "83.5x83.5",
