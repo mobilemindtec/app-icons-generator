@@ -8,4 +8,5 @@ if [ -z "$SWARM_HOME" ]; then
 fi
 
 
+rm -rf $SWARM_HOME/vms/icons/app/*
 cp -rf bin public routes views app.js package.json settings.js $SWARM_HOME/vms/icons/app/
