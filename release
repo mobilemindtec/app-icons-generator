@@ -8,4 +8,4 @@ if [ -z "$SWARM_HOME" ]; then
 fi
 
 
-cp -rf bin public routes views app.js packege.json settings.hs $SWARM_HOME/vms/icons/app/
+cp -rf bin public routes views app.js package.json settings.js $SWARM_HOME/vms/icons/app/
