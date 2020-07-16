@@ -1,5 +1,5 @@
 
-exports.upload_path = '/home/ricardo/Downloads/icones/data'
+exports.upload_path = './data'
 
 exports.icons_default_size = {
 
