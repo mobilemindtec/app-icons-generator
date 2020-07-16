@@ -1,0 +1,11 @@
+
+#!/bin/bash
+
+
+if [ -z "$SWARM_HOME" ]; then 
+	echo "SWARM_HOME variable is not set"
+	exit 1
+fi
+
+
+cp -rf bin public routes views app.js packege.json settings.hs $SWARM_HOME/vms/icons/app/
