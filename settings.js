@@ -53,6 +53,13 @@ exports.icons_default_size = {
                 "scale" : "1x"
             },
             {
+              "filename" : "iTunesArtwork@2x.png",
+              "idiom" : "ios-marketing",
+              "scale" : "1x",
+              "size" : "1024x1024"
+            },
+            
+            {
               "size" : "29x29",
               "idiom" : "iphone",
               "filename" : "App-Icon29.png",
